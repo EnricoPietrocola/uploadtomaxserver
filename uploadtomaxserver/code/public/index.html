@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMETallica</title>
+</head>
+<body>
+<h1>SMETallica</h1>
+
+<form method="POST" action="/upload" enctype="multipart/form-data"><div>
+    <label>Select your audio file:</label> <input type="file"   name="sound" />
+</div><div>
+    <input type="submit" name="sound" value="Upload" />
+</div></form>
+
+</body>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('#uploadForm').submit(function() {
+            $("#status").empty().text("File is uploading...");
+            $(this).ajaxSubmit({
+
+                error: function(xhr) {
+                    //status('Error: ' + xhr.status);
+                },
+
+                success: function(response) {
+                    //$("#status").empty().text(response);
+                    console.log(response);
+                }
+            });
+            //Very important line, it disable the page refresh.
+            return false;
+        });
+    });
+</script>-->
+<!--<script src="fileupload.js"></script>-->
+</html>

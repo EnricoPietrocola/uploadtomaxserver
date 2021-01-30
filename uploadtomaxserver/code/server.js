@@ -4,13 +4,16 @@ const fs = require('fs')
 const http = require('http')
 const app = express()
 const multer = require('multer')
+const Max = require('max-api')
 
 const PORT = process.env.PORT || 80
-const uploadsDirectoryPath = path.join(__dirname, '../uploads')
+const uploadsDirectoryPath = path.join(__dirname, '../code/uploads')
+const publicDirectoryPath = path.join(__dirname, '../code/public')
+
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '../uploads/')
+        cb(null, '../code/uploads/')
     },
     filename: function(req, file, cb) {
         cb(null, file.originalname)
@@ -19,9 +22,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 10485760 },
+    //limits: { fileSize: 10485760 },
     fileFilter: function(req, file, cb) {
-
+        const filetypes = /wav|WAV/;
         //const filetypes = /pdf|PDF/;
         const mimetype = filetypes.test(file.mimetype);
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -33,41 +36,22 @@ const upload = multer({
     }
 })
 
-app.post('/pdfupload', upload.single('docUpload'), function(req, res, next) {
+app.post('/upload', upload.single('sound'), function(req, res, next) {
     //get new uploaded file, move it in proper room folder path
     const originalName = req.file.originalname
-    const documentUrl = domain + '/uploads/' + req.file.originalname
-    const roomNameReq = req.query.roomname
-    const socketID = req.query.socket
     //console.log('POST ROOM IS ' + req.query.roomname)
+    //Max.post(uploadsDirectoryPath + '/' + originalName);
 
-    console.log('Request sent by user socketID ' + socketID)
     try {
-        fs.copyFile(uploadsDirectoryPath + '/' + originalName, uploadsDirectoryPath + '/' + roomNameReq + '/' + originalName.replace(/#/g,"_").replace(/ /g,"_"), (err) => {
-            try{
-                if (err) throw err;
-
-                console.log('moved doc to room folder, deleting doc from temp folder')
-                fs.unlinkSync(uploadsDirectoryPath + '/' + originalName)
-
-                rooms.changeRoomDocURL(roomNameReq, documentUrl) //this line is repeated in case a file stayed on the server after a reboot
-
-                //io.to(roomNameReq).emit('signalchannel', 'changeDocument,' + documentUrl)
-                io.to(socketID).emit('datachannel', 'notifyDocLink,' + documentUrl)
-                res.send(" ");
-            }
-            catch(e){
-                console.log(e)
-            }
-        });
-    }
-    catch (e){
-        console.log(e)
+        Max.outlet(path.normalize(path.join(uploadsDirectoryPath, originalName)).toString())
+        return res.status(201).send("File Inviato Correttamente")
+    } catch (error) {
+        console.error(error);
     }
 })
 
-app.get('/status', (req, res) => {
-    res.send('Cid is running, with ' + rooms.rooms.length + ' open rooms, with ' + rooms.getConnectionsCount() + ' total users. Total connections since last reboot are ' + totalConnections)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(publicDirectoryPath, 'index.html'));
 })
 
 httpServer = http.createServer(app);
