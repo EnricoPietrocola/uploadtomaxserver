@@ -24,7 +24,7 @@ const upload = multer({
     storage: storage,
     //limits: { fileSize: 10485760 },
     fileFilter: function(req, file, cb) {
-        const filetypes = /wav|WAV/;
+        const filetypes = /wav|WAV|flac|FLAC|mpeg|MPEG|aif|AIF/;
         //const filetypes = /pdf|PDF/;
         const mimetype = filetypes.test(file.mimetype);
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());

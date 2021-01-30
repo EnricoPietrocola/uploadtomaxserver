@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 77.0, 1450.0, 929.0 ],
+		"rect" : [ 35.0, 85.0, 890.0, 913.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,18 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-7",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 173.0, 539.0, 268.0, 62.0 ],
+					"text" : "- Find mp3 mime type\n- Add failsafes\n- Add loading bar for website upload\n- Better look for html page"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-27",
 					"maxclass" : "newobj",
@@ -355,7 +367,6 @@
 						"autostart" : 1,
 						"defer" : 0,
 						"node_bin_path" : "C:/Program Files/nodejs/node.exe",
-						"npm_bin_path" : "",
 						"watch" : 1
 					}
 ,
