@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 35.0, 85.0, 890.0, 913.0 ],
+		"rect" : [ 34.0, 77.0, 1590.0, 929.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -366,7 +366,7 @@
 					"saved_object_attributes" : 					{
 						"autostart" : 1,
 						"defer" : 0,
-						"node_bin_path" : "C:/Program Files/nodejs/node.exe",
+						"npm_bin_path" : "",
 						"watch" : 1
 					}
 ,
@@ -386,7 +386,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 375.0, 248.0, 114.20550537109375, 39.0 ]
+					"patching_rect" : [ 375.0, 248.0, 114.647499084472656, 39.0 ]
 				}
 
 			}
