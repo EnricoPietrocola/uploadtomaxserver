@@ -42,12 +42,31 @@ app.post('/upload', upload.single('sound'), function(req, res, next) {
     //console.log('POST ROOM IS ' + req.query.roomname)
     //Max.post(uploadsDirectoryPath + '/' + originalName);
 
-    try {
-        Max.outlet(path.normalize(path.join(uploadsDirectoryPath, originalName)).toString())
-        return res.status(201).send("File Inviato Correttamente")
-    } catch (error) {
-        console.error(error);
+    if(req.file.mimetype === 'audio/wav'){
+        console.log("File wav di dimesione " + req.file.size)
+        if(req.file.size > 3000 * 1024){
+            //elimina il file
+            try {
+                console.log(req.file.path)
+                fs.unlinkSync(req.file.path)
+            }
+            catch (e){
+
+            }
+            return res.status(201).send("File Troppo Grande")
+
+        }
+        else {
+            try {
+                Max.outlet(path.normalize(path.join(uploadsDirectoryPath, originalName)).toString())
+                console.log("File salvato")
+                return res.status(201).send("File Inviato Correttamente")
+            } catch (error) {
+                console.error(error);
+            }
+        }
     }
+
 })
 
 app.get('/', (req, res) => {
